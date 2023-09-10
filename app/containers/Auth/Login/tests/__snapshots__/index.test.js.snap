@@ -1,0 +1,438 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login /> Should render and match the snapshot 1`] = `
+.c1 {
+  font-family: 'Montserrat',sans-serif;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #091b29;
+}
+
+.c1 .emailLogin {
+  margin-bottom: 40px;
+  color: white;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.c1 .LoginSubContainer {
+  width: 400px;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c1 .LoginSubContainer .logo {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 60px;
+  margin-bottom: 20px;
+}
+
+.c1 .createAccount {
+  margin: 0;
+  font-weight: 700;
+  font-size: 42px;
+  color: white;
+}
+
+.c1 .socialIcons > span {
+  border: 1px solid #d9d9d9;
+  padding: 10px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+.c1 .socialIcons {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c1 .site-form-item-icon {
+  color: #19c37c;
+  font-size: 14px;
+}
+
+.c1 .accountData .ant-input:focus,
+.c1 .accountData .ant-input:focused,
+.c1 .accountData .ant-input:hover {
+  border-color: #19c37c;
+}
+
+.c1 .accountData > span:hover,
+.c1 .accountData > span:focus > span:visited {
+  border-color: #d9d9d9;
+}
+
+.c1 .accountData > div:nth-child(2) {
+  margin-top: 10px;
+}
+
+.c1 .accountData > input:first-child {
+  margin-top: 10px;
+}
+
+.c1 .accountData input {
+  width: 100%;
+  height: 40px;
+}
+
+.c1 .accountData input[value] {
+  color: rgba(0,0,0,0.45);
+  font-size: 15px;
+}
+
+.c1 .accountData input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+.c1 .accountData .ant-input-affix-wrapper {
+  padding: 0px 11px;
+}
+
+.c1 button:hover {
+  background: #19c37c;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.c1 button {
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  height: 52px;
+  width: 100%;
+  margin-top: 30px;
+  background: #19c37c;
+}
+
+.c1 button:focus {
+  background: #19c37c;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.c0 {
+  font-family: 'Montserrat',sans-serif;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c0 .sideContainer {
+  max-width: 513px;
+  width: 100%;
+  background: #ff6b6b;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 32px;
+}
+
+.c0 .sideContainer .registrationSideContainer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #fff;
+}
+
+.c0 .sideContainer .registrationSideContainer .title {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.c0 .sideContainer .registrationSideContainer .subTitle {
+  width: 60%;
+  text-align: center;
+  margin: 0;
+}
+
+.c0 .sideContainer .registrationSideContainer button {
+  margin-top: 35px;
+  height: 40px;
+  width: 160px;
+  background: transparent;
+  border: 2px solid #fff;
+  border-radius: 50px;
+  text-align: center;
+  color: #fff;
+}
+
+.c0 .sideContainer .registrationSideContainer button:hover {
+  color: #fff;
+}
+
+@media only screen and (max-width:767px) {
+  .c1 .LoginSubContainer {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width:576px) {
+  .c1 .LoginSubContainer {
+    width: 80vw;
+  }
+}
+
+<form
+  class="ant-form ant-form-horizontal"
+>
+  <div
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="LoginSubContainer"
+      >
+        <div
+          class="logo"
+        >
+          <img
+            alt="logo"
+            src="IMAGE_MOCK"
+          />
+        </div>
+        <p
+          class="createAccount"
+        >
+          Login
+        </p>
+        <p
+          class="emailLogin"
+        >
+          Please login to continue
+        </p>
+        <div
+          class="accountData"
+        >
+          <div
+            class="ant-form-item"
+          >
+            <div
+              class="ant-row ant-form-item-row"
+            >
+              <div
+                class="ant-col ant-form-item-control"
+              >
+                <div
+                  class="ant-form-item-control-input"
+                >
+                  <div
+                    class="ant-form-item-control-input-content"
+                  >
+                    <span
+                      class="ant-input-affix-wrapper"
+                    >
+                      <span
+                        class="ant-input-prefix"
+                      >
+                        <span
+                          aria-label="mail"
+                          class="anticon anticon-mail site-form-item-icon"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="mail"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-40 110.8V792H136V270.8l-27.6-21.5 39.3-50.5 42.8 33.3h643.1l42.8-33.3 39.3 50.5-27.7 21.5zM833.6 232L512 482 190.4 232l-42.8-33.3-39.3 50.5 27.6 21.5 341.6 265.6a55.99 55.99 0 0068.7 0L888 270.8l27.6-21.5-39.3-50.5-42.7 33.2z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                      <input
+                        aria-required="true"
+                        class="ant-input"
+                        id="email"
+                        placeholder="Email"
+                        type="email"
+                        value=""
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-form-item"
+          >
+            <div
+              class="ant-row ant-form-item-row"
+            >
+              <div
+                class="ant-col ant-form-item-control"
+              >
+                <div
+                  class="ant-form-item-control-input"
+                >
+                  <div
+                    class="ant-form-item-control-input-content"
+                  >
+                    <span
+                      class="ant-input-affix-wrapper ant-input-password"
+                    >
+                      <span
+                        class="ant-input-prefix"
+                      >
+                        <span
+                          aria-label="lock"
+                          class="anticon anticon-lock site-form-item-icon"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="lock"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 464h-68V240c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM332 240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v224H332V240zm460 600H232V536h560v304zM484 701v53c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-53a48.01 48.01 0 10-56 0z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                      <input
+                        aria-required="true"
+                        class="ant-input"
+                        id="password"
+                        placeholder="Password"
+                        type="password"
+                        value=""
+                      />
+                      <span
+                        class="ant-input-suffix"
+                      >
+                        <span
+                          aria-label="eye-invisible"
+                          class="anticon anticon-eye-invisible ant-input-password-icon"
+                          role="img"
+                          tabindex="-1"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="eye-invisible"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 000-51.5zm-63.57-320.64L836 122.88a8 8 0 00-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 000 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 000 11.31L155.17 889a8 8 0 0011.31 0l712.15-712.12a8 8 0 000-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 00-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 01146.2-106.69L401.31 546.2A112 112 0 01396 512z"
+                            />
+                            <path
+                              d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-form-item"
+        >
+          <div
+            class="ant-row ant-form-item-row"
+          >
+            <div
+              class="ant-col ant-form-item-control"
+            >
+              <div
+                class="ant-form-item-control-input"
+              >
+                <div
+                  class="ant-form-item-control-input-content"
+                >
+                  <button
+                    class="ant-btn ant-btn-default"
+                    type="submit"
+                  >
+                    SIGN IN
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`<Login /> Should render and match the snapshot Loadable 1`] = `null`;

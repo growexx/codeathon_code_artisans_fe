@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RoleMiddleWare /> should render and match the snapshot 1`] = `null`;
+
+exports[`<RoleMiddleWare /> should render and match the snapshot 2`] = `null`;
+
+exports[`<RoleMiddleWare /> should render and match the snapshot 3`] = `null`;

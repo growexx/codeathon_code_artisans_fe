@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Registration /> Should render and match the snapshot 1`] = `null`;
+
+exports[`<Registration /> Should render and match the snapshot Loadable 1`] = `null`;

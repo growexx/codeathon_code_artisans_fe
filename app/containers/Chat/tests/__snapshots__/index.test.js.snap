@@ -1,0 +1,188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Chat /> Should render and match the snapshot 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 100%;
+  background-color: #091b29;
+}
+
+.c0 .chat-section-wrapper {
+  overflow-y: auto;
+  padding-bottom: 50px;
+}
+
+.c0 .input-section-wrapper {
+  width: 50vw;
+  margin: 30px auto;
+  margin-top: 10px;
+}
+
+.c0 .chat-input {
+  color: white;
+  background-color: #000000;
+  border-color: rgba(32,33,35,0.5);
+  border-radius: 0.75rem;
+  padding: 16px;
+  padding-right: 64px;
+}
+
+.c0 .chat-input:focus {
+  box-shadow: none;
+}
+
+.c0 .default-option-container {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  grid-auto-flow: row;
+  width: 100%;
+  padding: 0rem 0.5rem;
+}
+
+.c0 .default-options {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 0.75rem;
+}
+
+.c0 .default-options .option-card {
+  font-weight: 600;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  overflow: hidden;
+  color: #c5c5d2;
+  background-color: #091b29;
+  padding: 8px 12px;
+  margin: 5px 10px;
+  border: 1px solid #565869;
+  border-radius: 0.75rem;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.c0 .default-options .option-card .card-content {
+  font-weight: 500;
+  opacity: 0.5;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.c0 .option-card:hover {
+  cursor: pointer;
+  background-color: #102a3f;
+}
+
+.c0 .send-btn {
+  postition: absolute;
+  bottom: 44px;
+  left: calc(50vw - 60px);
+  background-color: #ff6b6b;
+  border: none;
+  color: white;
+  padding: 0px 14px;
+}
+
+@media only screen and (max-width:1000px) {
+  .c0 .input-section-wrapper {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width:1000px) {
+  .c0 .send-btn {
+    left: calc(100% - 60px);
+  }
+}
+
+@media only screen and (max-width:576px) {
+  .c0 .default-options {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .c0 .default-options.options-1 {
+    display: none;
+  }
+}
+
+<div
+  class="c0"
+>
+  <div
+    class="chat-section-wrapper"
+    id="chat"
+  >
+    <div />
+  </div>
+  <div
+    class="input-section-wrapper"
+  >
+    <div
+      class="input-wrapper"
+    >
+      <textarea
+        class="ant-input chat-input ant-input-disabled"
+        disabled=""
+        placeholder="Send a message"
+        style="height: -256px; resize: none; min-height: -32px; max-height: -256px;"
+      />
+      <button
+        class="ant-btn ant-btn-default send-btn"
+        data-testid="SEND_CHAT_BTN"
+        type="button"
+      >
+        <span
+          aria-label="send"
+          class="anticon anticon-send"
+          role="img"
+        >
+          <svg
+            aria-hidden="true"
+            data-icon="send"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <defs>
+              <style />
+            </defs>
+            <path
+              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2a15.99 15.99 0 00-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;
