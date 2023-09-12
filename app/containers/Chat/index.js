@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Button, Input, Skeleton, notification } from 'antd';
-import { SendOutlined } from '@ant-design/icons';
+import { Button, Input, Skeleton, notification, Modal, Upload } from 'antd';
+import { SendOutlined, UploadOutlined, InboxOutlined } from '@ant-design/icons';
 import { useInjectReducer } from 'utils/injectReducer';
 import request from 'utils/request';
 import { StyledChat } from './StyledChat';
@@ -16,6 +16,7 @@ import { addChatAnswer, addChatQuestion, setChatHistory } from './actions';
 import { addSidebarItem } from '../../components/SideBar/actions';
 import { suggesstions } from './constants';
 import { API_ENDPOINTS, ROUTES } from '../constants';
+const { Dragger } = Upload;
 
 const key = 'chat';
 
@@ -48,6 +49,7 @@ const Chat = ({
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = location.pathname.split('/')[1];
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = e => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -138,12 +140,42 @@ const Chat = ({
     setUserScrolling(!isScrolledToBottom);
   };
 
+  const handleUploadModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const props = {
+    name: 'file',
+    multiple: true,
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+    onDrop(e) {
+      console.log('Dropped files', e.dataTransfer.files);
+    },
+  };
+
   useEffect(() => {
     if (!isNew) {
       loadChatHistory();
     }
     document.getElementById('chat').addEventListener('scroll', handleScroll);
-
 
     return () => {
       document
@@ -241,6 +273,9 @@ const Chat = ({
           </div>
         )}
         <div className="input-wrapper">
+          <Button className="upload-btn" onClick={() => handleUploadModal()}>
+            <UploadOutlined />
+          </Button>
           <Input.TextArea
             onPressEnter={handleSubmit}
             autoSize={{ minRows: 1, maxRows: 8 }}
@@ -261,6 +296,25 @@ const Chat = ({
           }
         </div>
       </div>
+      <Modal
+        title="Basic Modal"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Dragger {...props}>
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined />
+          </p>
+          <p className="ant-upload-text">
+            Click or drag file to this area to upload
+          </p>
+          <p className="ant-upload-hint">
+            Support for a single or bulk upload. Strictly prohibit from
+            uploading company data or other band files
+          </p>
+        </Dragger>
+      </Modal>
     </StyledChat>
   );
 };

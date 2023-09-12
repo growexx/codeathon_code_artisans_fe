@@ -83,8 +83,8 @@ export const StyledChat = styled.div`
 
   .send-btn {
     postition: absolute;
-    bottom: 44px;
-    left: calc(50vw - 60px);
+    bottom: 0px;
+    left: calc(0vw - 60px);
     background-color: @primary-color;
     border: none;
     color: white;
@@ -93,6 +93,20 @@ export const StyledChat = styled.div`
     @media only screen and (max-width: 1000px) {
       left: calc(100% - 60px);
     }
+  }
+
+  .input-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .upload-btn {
+    background-color: @primary-color;
+    border: none;
+    color: white;
+    padding: 0px 14px;
+    margin: 0 14px;
   }
 
   @media only screen and (max-width: 576px) {
