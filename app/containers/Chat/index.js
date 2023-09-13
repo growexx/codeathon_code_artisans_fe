@@ -159,19 +159,18 @@ const Chat = ({
   };
 
   const handleOk = () => {
-    console.log(uploadForm.getFieldsValue());
     const data = new FormData();
     const uploadValue = uploadForm.getFieldValue('upload');
-    console.log(uploadValue);
     uploadValue.forEach(x => {
       if (x.originFileObj !== undefined) {
         data.append('pdf', x.originFileObj);
       }
     });
-    console.log(data);
+    console.log(data); // TODO here we have to call the upload API
     setIsModalOpen(false);
   };
   const handleCancel = () => {
+    uploadForm.resetFields();
     setIsModalOpen(false);
   };
 
@@ -324,7 +323,7 @@ const Chat = ({
 
                 <div
                   style={{
-                    marginTop: 8,
+                    marginTop: 4,
                   }}
                 >
                   Upload
