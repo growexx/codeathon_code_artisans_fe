@@ -19,11 +19,14 @@ export const StyledChat = styled.div`
     @media only screen and (max-width: 1000px) {
       width: 90%;
     }
+    @media only screen and (max-width: 425px) {
+      width: 100%;
+    }
   }
 
   .chat-input {
     color: white;
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(35, 35, 35);
     border-color: rgba(32, 33, 35, 0.5);
     border-radius: 0.75rem;
     padding: 16px;
@@ -91,7 +94,7 @@ export const StyledChat = styled.div`
     padding: 0px 14px;
 
     @media only screen and (max-width: 1000px) {
-      left: calc(100% - 60px);
+      left: calc(100% - 300);
     }
   }
 
@@ -107,6 +110,8 @@ export const StyledChat = styled.div`
     color: white;
     padding: 0px 14px;
     margin: 0 14px;
+    height: 36px;
+    font-size: 1rem;
   }
 
   @media only screen and (max-width: 576px) {

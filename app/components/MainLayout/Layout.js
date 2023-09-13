@@ -119,12 +119,12 @@ function Layouts({ layoutVariant, collapsed, toggle, user }) {
     default:
       return (
         <Layout>
-          <SideBar
+          {/* <SideBar
             collapsed={collapsed}
             user={getUserData()}
             layoutVariant={layoutVariant}
             toggle={toggle}
-          />
+          /> */}
           <Layout className="site-layout">
             <Header className="headerLayout">
               <ToggleBreadCrumb>

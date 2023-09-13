@@ -19,15 +19,7 @@ import { API_ENDPOINTS, ROUTES } from '../constants';
 const { Dragger } = Upload;
 
 const key = 'chat';
-
-export const getSources = sources => {
-  const sourcesSet = new Set();
-  sources.forEach(source => {
-    const sourceArr = source.split('/');
-    sourcesSet.add(sourceArr[sourceArr.length - 1]);
-  });
-  return Array.from(sourcesSet);
-};
+const tempAns = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quod dolore, accusantium harum eaque natus veniam facilis. Odio ipsam accusamus fugiat natus omnis illum unde quae corrupti amet est. Iusto!";
 
 const Chat = ({
   isNew,
@@ -72,14 +64,19 @@ const Chat = ({
       }
       addChatQue(chatId, message.trim());
       setSearchValue('');
-      const response = await request(API_ENDPOINTS.CHAT, {
-        method: 'POST',
-        body: { key: chatId, question: message.trim() },
-      });
+      // const response = await request(API_ENDPOINTS.CHAT, {
+      //   method: 'POST',
+      //   body: { key: chatId, question: message.trim() },
+      // });
+      const response = {
+        status: 1,
+        data: {
+          answer: tempAns,
+        }
+      }
       if (response.status === 1) {
         const answer = response.data.answer;
-        const sources = getSources(response.data.sources);
-        addChatAns(chatId, answer, sources);
+        addChatAns(chatId, answer, []);
       }
     } catch (error) {
       notification.error({ message: error.message });
@@ -91,21 +88,29 @@ const Chat = ({
     setLoading(true);
     try {
       if (chatHistory[chatId] === undefined) {
-        const response = await request(`${API_ENDPOINTS.CHAT}?id=${chatId}`, {
-          method: 'GET',
-        });
+        // const response = await request(`${API_ENDPOINTS.CHAT}?id=${chatId}`, {
+        //   method: 'GET',
+        // });
+        const response = {
+          data: {
+            question: 'This is a test question',
+            answer: tempAns,
+            chat_history: {
+              question: 'This is a test question',
+              answer: tempAns,
+            }
+          }
+        }
         const chatHistory = [];
         if (response?.status === 1) {
           chatHistory.push({
             question: response?.data?.question,
             answer: response?.data?.answer,
-            sources: getSources(response?.data?.sources),
           });
           response?.data?.chat_history?.map((chat, index) => {
             chatHistory.push({
               question: chat.question,
               answer: chat.answer,
-              sources: getSources(chat.sources),
             });
           });
         } else {
@@ -193,40 +198,39 @@ const Chat = ({
       <div className="chat-section-wrapper" id="chat" ref={chatSectionRef}>
         {chatHistory[chatId] !== undefined || pathname === 'new-chat'
           ? chatHistory[chatId]?.map((chat, index) => (
-              <div key={`${chatId}${index.toString()}`}>
-                <ChatItem content={chat.question} />
-                {chat?.answer ? (
-                  <ChatItem
-                    content={chat.answer}
-                    bot
-                    typing={shouldShowTyping(index)}
-                    sources={chat.sources}
-                    scrollToBottom={scrollToBottom}
-                    setLoading={setLoading}
-                  />
-                ) : (
-                  <ChatItem
-                    skeleton
-                    content={<Skeleton active />}
-                    bot
-                    scrollToBottom={scrollToBottom}
-                  />
-                )}
-                {scrollToBottom()}
-              </div>
-            ))
-          : [1].map((chat, index) => (
-              <div key={`index${index.toString()}`}>
+            <div key={`${chatId}${index.toString()}`}>
+              <ChatItem content={chat.question} />
+              {chat?.answer ? (
+                <ChatItem
+                  content={chat.answer}
+                  bot
+                  typing={shouldShowTyping(index)}
+                  scrollToBottom={scrollToBottom}
+                  setLoading={setLoading}
+                />
+              ) : (
                 <ChatItem
                   skeleton
-                  content={<Skeleton active title paragraph={false} />}
+                  content={<Skeleton active />}
+                  bot
+                  scrollToBottom={scrollToBottom}
                 />
-                <ChatItem skeleton content={<Skeleton active />} bot />
-              </div>
-            ))}
+              )}
+              {scrollToBottom()}
+            </div>
+          ))
+          : [1].map((chat, index) => (
+            <div key={`index${index.toString()}`}>
+              <ChatItem
+                skeleton
+                content={<Skeleton active title paragraph={false} />}
+              />
+              <ChatItem skeleton content={<Skeleton active />} bot />
+            </div>
+          ))}
       </div>
       <div className="input-section-wrapper">
-        {isNew && firstRender && (
+        {/* {isNew && firstRender && (
           <div className="default-option-container">
             <div className="default-options options-1">
               {suggesstions.map((suggestion, index) => {
@@ -271,7 +275,7 @@ const Chat = ({
               })}
             </div>
           </div>
-        )}
+        )} */}
         <div className="input-wrapper">
           <Button className="upload-btn" onClick={() => handleUploadModal()}>
             <UploadOutlined />
@@ -309,10 +313,6 @@ const Chat = ({
           <p className="ant-upload-text">
             Click or drag file to this area to upload
           </p>
-          <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibit from
-            uploading company data or other band files
-          </p>
         </Dragger>
       </Modal>
     </StyledChat>
@@ -334,8 +334,8 @@ export function mapDispatchToProps(dispatch) {
   return {
     addChatQue: (chatId, question) =>
       dispatch(addChatQuestion(chatId, question)),
-    addChatAns: (chatId, answer, sources) =>
-      dispatch(addChatAnswer(chatId, answer, sources)),
+    addChatAns: (chatId, answer, []) =>
+      dispatch(addChatAnswer(chatId, answer, [])),
     setHistory: (chatId, history) => dispatch(setChatHistory(chatId, history)),
     addNewSidebar: data => dispatch(addSidebarItem(data)),
   };

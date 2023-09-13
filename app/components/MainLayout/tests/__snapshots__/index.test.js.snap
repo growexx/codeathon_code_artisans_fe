@@ -14,7 +14,7 @@ exports[`<MainLayout /> should render and match the snapshot 1`] = `
   -ms-flex-pack: justify;
   justify-content: space-between;
   height: 100%;
-  background-color: #091b29;
+  background-color: black;
 }
 
 .c6 .chat-section-wrapper {
@@ -30,7 +30,7 @@ exports[`<MainLayout /> should render and match the snapshot 1`] = `
 
 .c6 .chat-input {
   color: white;
-  background-color: #000000;
+  background-color: #232323;
   border-color: rgba(32,33,35,0.5);
   border-radius: 0.75rem;
   padding: 16px;
@@ -101,12 +101,36 @@ exports[`<MainLayout /> should render and match the snapshot 1`] = `
 
 .c6 .send-btn {
   postition: absolute;
-  bottom: 44px;
-  left: calc(50vw - 60px);
-  background-color: #ff6b6b;
+  bottom: 0px;
+  left: calc(0vw - 60px);
+  background-color: #015555;
   border: none;
   color: white;
   padding: 0px 14px;
+}
+
+.c6 .input-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c6 .upload-btn {
+  background-color: #015555;
+  border: none;
+  color: white;
+  padding: 0px 14px;
+  margin: 0 14px;
+  height: 36px;
+  font-size: 1rem;
 }
 
 .c5 {
@@ -315,7 +339,7 @@ exports[`<MainLayout /> should render and match the snapshot 1`] = `
 .c4 .ant-dropdown-trigger,
 .c4 .ant-dropdown-trigger:hover {
   border-radius: 50% !important;
-  background-color: #ff6b6b;
+  background-color: #015555;
   color: #fff;
 }
 
@@ -325,9 +349,15 @@ exports[`<MainLayout /> should render and match the snapshot 1`] = `
   }
 }
 
+@media only screen and (max-width:425px) {
+  .c6 .input-section-wrapper {
+    width: 100%;
+  }
+}
+
 @media only screen and (max-width:1000px) {
   .c6 .send-btn {
-    left: calc(100% - 60px);
+    left: calc(100% - 300);
   }
 }
 
@@ -366,93 +396,8 @@ exports[`<MainLayout /> should render and match the snapshot 1`] = `
       class="c0 main-layout"
     >
       <section
-        class="ant-layout ant-layout-has-sider"
+        class="ant-layout"
       >
-        <div
-          class="extra-content"
-        />
-        <aside
-          class="ant-layout-sider ant-layout-sider-dark not-collapsed-sider"
-          id="components-layout-demo-custom-trigger"
-          style="flex: 0 0 244px; max-width: 244px; min-width: 244px; width: 244px;"
-        >
-          <div
-            class="ant-layout-sider-children"
-          >
-            <div
-              class="new-chat-wrapper"
-            >
-              <button
-                class="ant-btn ant-btn-primary new-chat-btn"
-                type="button"
-              >
-                <span
-                  aria-label="plus"
-                  class="anticon anticon-plus"
-                  role="img"
-                >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="plus"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
-                  >
-                    <defs>
-                      <style />
-                    </defs>
-                    <path
-                      d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
-                    />
-                    <path
-                      d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"
-                    />
-                  </svg>
-                </span>
-                <span>
-                  New Chat
-                </span>
-              </button>
-              <button
-                class="ant-btn ant-btn-primary ant-btn-icon-only sidebar-btn"
-                data-testid="SIDEBAR_TOGGLE"
-                type="button"
-              >
-                <span
-                  aria-label="menu-fold"
-                  class="anticon anticon-menu-fold"
-                  role="img"
-                >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="menu-fold"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
-                  >
-                    <path
-                      d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 000 13.8z"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-            <ul
-              class="ant-menu ant-menu-root ant-menu-inline ant-menu-dark"
-              data-menu-list="true"
-              role="menu"
-              tabindex="0"
-            />
-            <div
-              aria-hidden="true"
-              style="display: none;"
-            />
-          </div>
-        </aside>
         <section
           class="ant-layout site-layout"
         >
@@ -499,7 +444,7 @@ exports[`<MainLayout /> should render and match the snapshot 1`] = `
                 <div
                   class="heading"
                 >
-                  LLM Bot
+                  Code Artisans
                 </div>
                 <div
                   class="c4"
@@ -551,76 +496,32 @@ exports[`<MainLayout /> should render and match the snapshot 1`] = `
                   class="input-section-wrapper"
                 >
                   <div
-                    class="default-option-container"
-                  >
-                    <div
-                      class="default-options options-1"
-                    >
-                      <button
-                        class="ant-btn ant-btn-default option-card"
-                        data-testid="SUGG_BTN"
-                        type="button"
-                      >
-                        <div>
-                          Which product segments or business units
-                        </div>
-                        <div
-                          class="card-content"
-                        >
-                          contributed the most to the Clean Science's revenue and profitability?
-                        </div>
-                      </button>
-                      <button
-                        class="ant-btn ant-btn-default option-card"
-                        data-testid="SUGG_BTN"
-                        type="button"
-                      >
-                        <div>
-                          What are major cost drivers affecting
-                        </div>
-                        <div
-                          class="card-content"
-                        >
-                          Galaxy Surfactants' profitability and how have they been managed?
-                        </div>
-                      </button>
-                    </div>
-                    <div
-                      class="default-options"
-                    >
-                      <button
-                        class="ant-btn ant-btn-default option-card"
-                        data-testid="SUGG_BTN"
-                        type="button"
-                      >
-                        <div>
-                          What are the overall financial
-                        </div>
-                        <div
-                          class="card-content"
-                        >
-                          performance highlights of Gujarat Fluorochemicals in the last fiscal year?
-                        </div>
-                      </button>
-                      <button
-                        class="ant-btn ant-btn-default option-card"
-                        data-testid="SUGG_BTN"
-                        type="button"
-                      >
-                        <div>
-                          What are the key risks and challenges EPL
-                        </div>
-                        <div
-                          class="card-content"
-                        >
-                          faces in chemical industry and how are they being addressed?
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-                  <div
                     class="input-wrapper"
                   >
+                    <button
+                      class="ant-btn ant-btn-default upload-btn"
+                      type="button"
+                    >
+                      <span
+                        aria-label="upload"
+                        class="anticon anticon-upload"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="upload"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M400 317.7h73.9V656c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V317.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 163a8 8 0 00-12.6 0l-112 141.7c-4.1 5.3-.4 13 6.3 13zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                          />
+                        </svg>
+                      </span>
+                    </button>
                     <textarea
                       class="ant-input chat-input"
                       placeholder="Send a message"

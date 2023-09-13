@@ -11,18 +11,14 @@ function ChatItem({
   typing,
   skeleton = false,
   sources = [],
-  scrollToBottom = () => {},
-  setLoading = () => {},
+  scrollToBottom = () => { },
+  setLoading = () => { },
 }) {
   const [showButton, setShowButton] = useState(!typing);
   const [showPdfs, setShowPdfs] = useState(false);
   const [render, setRender] = useState(true);
-  const pdfsPath = '../../../pdfs/';
 
   useEffect(() => {
-    sources.forEach(async source => {
-      await import(`../../../pdfs/${source}`);
-    });
     return () => {
       setShowButton(!typing);
       setShowPdfs(false);
@@ -36,7 +32,7 @@ function ChatItem({
   return (
     <StyledChatItem>
       <div className={`chat-history-wrapper ${bot && 'bot'}`}>
-        <div className="chat-wrapper">
+        <div className={`chat-wrapper ${!bot && 'not-bot'}`}>
           <div className="avatar-wrapper">
             {bot ? (
               <img src={GrowExxLogo} alt="avatar" />
@@ -44,7 +40,7 @@ function ChatItem({
               <img src={ProfileLogo} alt="avatar" />
             )}
           </div>
-          <div className="chat-content-wrapper">
+          <div className={`chat-content-wrapper ${!bot && 'not-bot'}`}>
             {typing ? (
               <Typist
                 avgTypingDelay={-20}
@@ -86,7 +82,7 @@ function ChatItem({
                 )}
               </div>
             )}
-            {showButton && bot && !skeleton && (
+            {/* {showButton && bot && !skeleton && (
               <div className="source-wrapper">
                 <Button
                   className="source-btn"
@@ -101,7 +97,7 @@ function ChatItem({
                     </a>
                   ))}
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
