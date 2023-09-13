@@ -85,8 +85,7 @@ const Chat = ({
       };
       if (response.status === 1) {
         const answer = response.data.answer;
-        const sources = getSources(response.data.sources);
-        addChatAns(chatId, answer, sources);
+        addChatAns(chatId, answer, []);
       }
     } catch (error) {
       notification.error({ message: error.message });
@@ -116,13 +115,11 @@ const Chat = ({
           chatHistory.push({
             question: response?.data?.question,
             answer: response?.data?.answer,
-            sources: getSources(response?.data?.sources),
           });
           response?.data?.chat_history?.map((chat, index) => {
             chatHistory.push({
               question: chat.question,
               answer: chat.answer,
-              sources: getSources(chat.sources),
             });
           });
         } else {
@@ -232,7 +229,7 @@ const Chat = ({
             ))}
       </div>
       <div className="input-section-wrapper">
-        {isNew && firstRender && (
+        {/* {isNew && firstRender && (
           <div className="default-option-container">
             <div className="default-options options-1">
               {suggesstions.map((suggestion, index) => {
@@ -277,7 +274,7 @@ const Chat = ({
               })}
             </div>
           </div>
-        )}
+        )} */}
         <div className="input-wrapper">
           <Button className="upload-btn" onClick={() => handleUploadModal()}>
             <UploadOutlined />
@@ -356,8 +353,8 @@ export function mapDispatchToProps(dispatch) {
   return {
     addChatQue: (chatId, question) =>
       dispatch(addChatQuestion(chatId, question)),
-    addChatAns: (chatId, answer, sources) =>
-      dispatch(addChatAnswer(chatId, answer, sources)),
+    addChatAns: (chatId, answer, []) =>
+      dispatch(addChatAnswer(chatId, answer, [])),
     setHistory: (chatId, history) => dispatch(setChatHistory(chatId, history)),
     addNewSidebar: data => dispatch(addSidebarItem(data)),
   };

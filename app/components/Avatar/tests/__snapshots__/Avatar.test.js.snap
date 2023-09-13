@@ -8,7 +8,7 @@ exports[`<Avatar /> should render a div 1`] = `
 .c0 .ant-dropdown-trigger,
 .c0 .ant-dropdown-trigger:hover {
   border-radius: 50% !important;
-  background-color: #ff6b6b;
+  background-color: #015555;
   color: #fff;
 }
 

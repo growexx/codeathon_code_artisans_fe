@@ -14,7 +14,7 @@ exports[`<Chat /> Should render and match the snapshot 1`] = `
   -ms-flex-pack: justify;
   justify-content: space-between;
   height: 100%;
-  background-color: #091b29;
+  background-color: black;
 }
 
 .c0 .chat-section-wrapper {
@@ -30,7 +30,7 @@ exports[`<Chat /> Should render and match the snapshot 1`] = `
 
 .c0 .chat-input {
   color: white;
-  background-color: #000000;
+  background-color: #232323;
   border-color: rgba(32,33,35,0.5);
   border-radius: 0.75rem;
   padding: 16px;
@@ -101,12 +101,36 @@ exports[`<Chat /> Should render and match the snapshot 1`] = `
 
 .c0 .send-btn {
   postition: absolute;
-  bottom: 44px;
-  left: calc(50vw - 60px);
-  background-color: #ff6b6b;
+  bottom: 0px;
+  left: calc(0vw - 60px);
+  background-color: #015555;
   border: none;
   color: white;
   padding: 0px 14px;
+}
+
+.c0 .input-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c0 .upload-btn {
+  background-color: #015555;
+  border: none;
+  color: white;
+  padding: 0px 14px;
+  margin: 0 14px;
+  height: 36px;
+  font-size: 1rem;
 }
 
 @media only screen and (max-width:1000px) {
@@ -115,9 +139,15 @@ exports[`<Chat /> Should render and match the snapshot 1`] = `
   }
 }
 
+@media only screen and (max-width:425px) {
+  .c0 .input-section-wrapper {
+    width: 100%;
+  }
+}
+
 @media only screen and (max-width:1000px) {
   .c0 .send-btn {
-    left: calc(100% - 60px);
+    left: calc(100% - 300);
   }
 }
 
@@ -139,18 +169,39 @@ exports[`<Chat /> Should render and match the snapshot 1`] = `
   <div
     class="chat-section-wrapper"
     id="chat"
-  >
-    <div />
-  </div>
+  />
   <div
     class="input-section-wrapper"
   >
     <div
       class="input-wrapper"
     >
+      <button
+        class="ant-btn ant-btn-default upload-btn"
+        type="button"
+      >
+        <span
+          aria-label="upload"
+          class="anticon anticon-upload"
+          role="img"
+        >
+          <svg
+            aria-hidden="true"
+            data-icon="upload"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <path
+              d="M400 317.7h73.9V656c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V317.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 163a8 8 0 00-12.6 0l-112 141.7c-4.1 5.3-.4 13 6.3 13zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+            />
+          </svg>
+        </span>
+      </button>
       <textarea
-        class="ant-input chat-input ant-input-disabled"
-        disabled=""
+        class="ant-input chat-input"
         placeholder="Send a message"
         style="height: -256px; resize: none; min-height: -32px; max-height: -256px;"
       />
