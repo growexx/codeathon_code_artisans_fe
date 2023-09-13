@@ -8,10 +8,10 @@ export const StyledLogin = styled.div`
   align-items: center;
   flex-direction: column;
   height: 100vh;
-  background-color: @chat-bot-bg;
+  background: linear-gradient(to bottom, #cc7dff, lightgreen, #aecce4);
   .emailLogin {
     margin-bottom: 40px;
-    color: white;
+    color: #091b29;
     font-weight: @font-weight-regular;
     font-size: @font-size-base;
   }
@@ -36,7 +36,7 @@ export const StyledLogin = styled.div`
     margin: 0;
     font-weight: @font-weight-bold;
     font-size: @font-size-lg+26;
-    color: white;
+    color: #091b29;
   }
   .socialIcons > span {
     border: 1px solid @border-color-base;
@@ -48,14 +48,14 @@ export const StyledLogin = styled.div`
     display: flex;
   }
   .site-form-item-icon {
-    color: #19c37c;
+    color: #091b29;
     font-size: 14px;
   }
   .accountData {
     .ant-input:focus,
     .ant-input:focused,
     .ant-input:hover {
-      border-color: #19c37c;
+      border-color: #091b29;
     }
     > span:hover,
     > span:focus > span:visited {
@@ -83,7 +83,7 @@ export const StyledLogin = styled.div`
     }
   }
   button:hover {
-    background: #19c37c;
+    background: #091b29;
     border: 2px solid @white;
     color: @white;
   }
@@ -95,10 +95,10 @@ export const StyledLogin = styled.div`
     height: 52px;
     width: 100%;
     margin-top: 30px;
-    background: #19c37c;
+    background: #091b29;
   }
   button:focus {
-    background: #19c37c;
+    background: #091b29;
     border: 2px solid @white;
     color: @white;
   }
