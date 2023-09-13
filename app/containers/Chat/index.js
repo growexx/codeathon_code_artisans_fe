@@ -4,8 +4,16 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Button, Input, Skeleton, notification, Modal, Upload } from 'antd';
-import { SendOutlined, UploadOutlined, InboxOutlined } from '@ant-design/icons';
+import {
+  Button,
+  Input,
+  Skeleton,
+  notification,
+  Modal,
+  Upload,
+  Form,
+} from 'antd';
+import { SendOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import { useInjectReducer } from 'utils/injectReducer';
 import request from 'utils/request';
 import { StyledChat } from './StyledChat';
@@ -16,18 +24,10 @@ import { addChatAnswer, addChatQuestion, setChatHistory } from './actions';
 import { addSidebarItem } from '../../components/SideBar/actions';
 import { suggesstions } from './constants';
 import { API_ENDPOINTS, ROUTES } from '../constants';
-const { Dragger } = Upload;
 
 const key = 'chat';
-
-export const getSources = sources => {
-  const sourcesSet = new Set();
-  sources.forEach(source => {
-    const sourceArr = source.split('/');
-    sourcesSet.add(sourceArr[sourceArr.length - 1]);
-  });
-  return Array.from(sourcesSet);
-};
+const tempAns =
+  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quod dolore, accusantium harum eaque natus veniam facilis. Odio ipsam accusamus fugiat natus omnis illum unde quae corrupti amet est. Iusto!';
 
 const Chat = ({
   isNew,
@@ -50,6 +50,7 @@ const Chat = ({
   const navigate = useNavigate();
   const pathname = location.pathname.split('/')[1];
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [uploadForm] = Form.useForm();
 
   const handleSubmit = e => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -72,10 +73,16 @@ const Chat = ({
       }
       addChatQue(chatId, message.trim());
       setSearchValue('');
-      const response = await request(API_ENDPOINTS.CHAT, {
-        method: 'POST',
-        body: { key: chatId, question: message.trim() },
-      });
+      // const response = await request(API_ENDPOINTS.CHAT, {
+      //   method: 'POST',
+      //   body: { key: chatId, question: message.trim() },
+      // });
+      const response = {
+        status: 1,
+        data: {
+          answer: tempAns,
+        },
+      };
       if (response.status === 1) {
         const answer = response.data.answer;
         const sources = getSources(response.data.sources);
@@ -91,9 +98,19 @@ const Chat = ({
     setLoading(true);
     try {
       if (chatHistory[chatId] === undefined) {
-        const response = await request(`${API_ENDPOINTS.CHAT}?id=${chatId}`, {
-          method: 'GET',
-        });
+        // const response = await request(`${API_ENDPOINTS.CHAT}?id=${chatId}`, {
+        //   method: 'GET',
+        // });
+        const response = {
+          data: {
+            question: 'This is a test question',
+            answer: tempAns,
+            chat_history: {
+              question: 'This is a test question',
+              answer: tempAns,
+            },
+          },
+        };
         const chatHistory = [];
         if (response?.status === 1) {
           chatHistory.push({
@@ -145,30 +162,20 @@ const Chat = ({
   };
 
   const handleOk = () => {
+    console.log(uploadForm.getFieldsValue());
+    const data = new FormData();
+    const uploadValue = uploadForm.getFieldValue('upload');
+    console.log(uploadValue);
+    uploadValue.forEach(x => {
+      if (x.originFileObj !== undefined) {
+        data.append('pdf', x.originFileObj);
+      }
+    });
+    console.log(data);
     setIsModalOpen(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
-  };
-
-  const props = {
-    name: 'file',
-    multiple: true,
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    onChange(info) {
-      const { status } = info.file;
-      if (status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
-    },
   };
 
   useEffect(() => {
@@ -200,7 +207,6 @@ const Chat = ({
                     content={chat.answer}
                     bot
                     typing={shouldShowTyping(index)}
-                    sources={chat.sources}
                     scrollToBottom={scrollToBottom}
                     setLoading={setLoading}
                   />
@@ -302,18 +308,34 @@ const Chat = ({
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <Dragger {...props}>
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">
-            Click or drag file to this area to upload
-          </p>
-          <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibit from
-            uploading company data or other band files
-          </p>
-        </Dragger>
+        <Form role="form" form={uploadForm}>
+          <Form.Item
+            label="Upload pdf"
+            valuePropName="fileList"
+            name="upload"
+            getValueFromEvent={uploadedFiles =>
+              uploadedFiles && uploadedFiles.fileList
+            }
+          >
+            <Upload
+              beforeUpload={() => false}
+              listType="picture-card"
+              data-testid="upload"
+            >
+              <div>
+                <PlusOutlined />
+
+                <div
+                  style={{
+                    marginTop: 8,
+                  }}
+                >
+                  Upload
+                </div>
+              </div>
+            </Upload>
+          </Form.Item>
+        </Form>
       </Modal>
     </StyledChat>
   );
