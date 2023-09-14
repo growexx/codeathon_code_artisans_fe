@@ -4,8 +4,16 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Button, Input, Skeleton, notification, Modal, Upload } from 'antd';
-import { SendOutlined, UploadOutlined, InboxOutlined } from '@ant-design/icons';
+import {
+  Button,
+  Input,
+  Skeleton,
+  notification,
+  Modal,
+  Upload,
+  Form,
+} from 'antd';
+import { SendOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import { useInjectReducer } from 'utils/injectReducer';
 import request from 'utils/request';
 import { StyledChat } from './StyledChat';
@@ -16,10 +24,10 @@ import { addChatAnswer, addChatQuestion, setChatHistory } from './actions';
 import { addSidebarItem } from '../../components/SideBar/actions';
 import { suggesstions } from './constants';
 import { API_ENDPOINTS, ROUTES } from '../constants';
-const { Dragger } = Upload;
 
 const key = 'chat';
-const tempAns = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quod dolore, accusantium harum eaque natus veniam facilis. Odio ipsam accusamus fugiat natus omnis illum unde quae corrupti amet est. Iusto!";
+const tempAns =
+  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quod dolore, accusantium harum eaque natus veniam facilis. Odio ipsam accusamus fugiat natus omnis illum unde quae corrupti amet est. Iusto!';
 
 const Chat = ({
   isNew,
@@ -42,6 +50,7 @@ const Chat = ({
   const navigate = useNavigate();
   const pathname = location.pathname.split('/')[1];
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [uploadForm] = Form.useForm();
 
   const handleSubmit = e => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -72,8 +81,8 @@ const Chat = ({
         status: 1,
         data: {
           answer: tempAns,
-        }
-      }
+        },
+      };
       if (response.status === 1) {
         const answer = response.data.answer;
         addChatAns(chatId, answer, []);
@@ -98,9 +107,9 @@ const Chat = ({
             chat_history: {
               question: 'This is a test question',
               answer: tempAns,
-            }
-          }
-        }
+            },
+          },
+        };
         const chatHistory = [];
         if (response?.status === 1) {
           chatHistory.push({
@@ -150,30 +159,19 @@ const Chat = ({
   };
 
   const handleOk = () => {
+    const data = new FormData();
+    const uploadValue = uploadForm.getFieldValue('upload');
+    uploadValue.forEach(x => {
+      if (x.originFileObj !== undefined) {
+        data.append('pdf', x.originFileObj);
+      }
+    });
+    console.log(data); // TODO here we have to call the upload API
     setIsModalOpen(false);
   };
   const handleCancel = () => {
+    uploadForm.resetFields();
     setIsModalOpen(false);
-  };
-
-  const props = {
-    name: 'file',
-    multiple: true,
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    onChange(info) {
-      const { status } = info.file;
-      if (status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
-    },
   };
 
   useEffect(() => {
@@ -198,36 +196,36 @@ const Chat = ({
       <div className="chat-section-wrapper" id="chat" ref={chatSectionRef}>
         {chatHistory[chatId] !== undefined || pathname === 'new-chat'
           ? chatHistory[chatId]?.map((chat, index) => (
-            <div key={`${chatId}${index.toString()}`}>
-              <ChatItem content={chat.question} />
-              {chat?.answer ? (
-                <ChatItem
-                  content={chat.answer}
-                  bot
-                  typing={shouldShowTyping(index)}
-                  scrollToBottom={scrollToBottom}
-                  setLoading={setLoading}
-                />
-              ) : (
+              <div key={`${chatId}${index.toString()}`}>
+                <ChatItem content={chat.question} />
+                {chat?.answer ? (
+                  <ChatItem
+                    content={chat.answer}
+                    bot
+                    typing={shouldShowTyping(index)}
+                    scrollToBottom={scrollToBottom}
+                    setLoading={setLoading}
+                  />
+                ) : (
+                  <ChatItem
+                    skeleton
+                    content={<Skeleton active />}
+                    bot
+                    scrollToBottom={scrollToBottom}
+                  />
+                )}
+                {scrollToBottom()}
+              </div>
+            ))
+          : [1].map((chat, index) => (
+              <div key={`index${index.toString()}`}>
                 <ChatItem
                   skeleton
-                  content={<Skeleton active />}
-                  bot
-                  scrollToBottom={scrollToBottom}
+                  content={<Skeleton active title paragraph={false} />}
                 />
-              )}
-              {scrollToBottom()}
-            </div>
-          ))
-          : [1].map((chat, index) => (
-            <div key={`index${index.toString()}`}>
-              <ChatItem
-                skeleton
-                content={<Skeleton active title paragraph={false} />}
-              />
-              <ChatItem skeleton content={<Skeleton active />} bot />
-            </div>
-          ))}
+                <ChatItem skeleton content={<Skeleton active />} bot />
+              </div>
+            ))}
       </div>
       <div className="input-section-wrapper">
         {/* {isNew && firstRender && (
@@ -306,14 +304,34 @@ const Chat = ({
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <Dragger {...props}>
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">
-            Click or drag file to this area to upload
-          </p>
-        </Dragger>
+        <Form role="form" form={uploadForm}>
+          <Form.Item
+            label="Upload pdf"
+            valuePropName="fileList"
+            name="upload"
+            getValueFromEvent={uploadedFiles =>
+              uploadedFiles && uploadedFiles.fileList
+            }
+          >
+            <Upload
+              beforeUpload={() => false}
+              listType="picture-card"
+              data-testid="upload"
+            >
+              <div>
+                <PlusOutlined />
+
+                <div
+                  style={{
+                    marginTop: 4,
+                  }}
+                >
+                  Upload
+                </div>
+              </div>
+            </Upload>
+          </Form.Item>
+        </Form>
       </Modal>
     </StyledChat>
   );
