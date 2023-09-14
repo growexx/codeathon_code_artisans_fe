@@ -72,6 +72,10 @@ const GlobalStyle = createGlobalStyle`
   .ant-dropdown-menu {
     margin-right: 16px;
   }
+  .ant-upload-list-picture-card .ant-upload-list-item, .ant-upload.ant-upload-select-picture-card > .ant-upload {
+    background: #10615e;
+    color: white;
+  }
   /**
   * display utility class
   */

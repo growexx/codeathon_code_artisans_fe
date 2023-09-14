@@ -26,8 +26,7 @@ import { suggesstions } from './constants';
 import { API_ENDPOINTS, ROUTES } from '../constants';
 
 const key = 'chat';
-const tempAns =
-  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quod dolore, accusantium harum eaque natus veniam facilis. Odio ipsam accusamus fugiat natus omnis illum unde quae corrupti amet est. Iusto!';
+const tempAns = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quod dolore, accusantium harum eaque natus veniam facilis. Odio ipsam accusamus fugiat natus omnis illum unde quae corrupti amet est. Iusto!";
 
 const Chat = ({
   isNew,
@@ -158,15 +157,26 @@ const Chat = ({
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
+    setLoading(true);
     const data = new FormData();
     const uploadValue = uploadForm.getFieldValue('upload');
     uploadValue.forEach(x => {
       if (x.originFileObj !== undefined) {
+        addChatQue(chatId, x.name);
         data.append('pdf', x.originFileObj);
       }
     });
-    console.log(data); // TODO here we have to call the upload API
+    const response = await fetch('http://localhost:3002/user/pdf', {
+      method: 'POST',
+      body: data,
+    });
+    const json = await response.json();
+    if (json.status === 1) {
+      const answer = json.data.answer;
+      addChatAns(chatId, answer, []);
+    }
+    setLoading(false);
     setIsModalOpen(false);
   };
   const handleCancel = () => {
@@ -196,36 +206,29 @@ const Chat = ({
       <div className="chat-section-wrapper" id="chat" ref={chatSectionRef}>
         {chatHistory[chatId] !== undefined || pathname === 'new-chat'
           ? chatHistory[chatId]?.map((chat, index) => (
-              <div key={`${chatId}${index.toString()}`}>
-                <ChatItem content={chat.question} />
-                {chat?.answer ? (
-                  <ChatItem
-                    content={chat.answer}
-                    bot
-                    typing={shouldShowTyping(index)}
-                    scrollToBottom={scrollToBottom}
-                    setLoading={setLoading}
-                  />
-                ) : (
-                  <ChatItem
-                    skeleton
-                    content={<Skeleton active />}
-                    bot
-                    scrollToBottom={scrollToBottom}
-                  />
-                )}
-                {scrollToBottom()}
-              </div>
-            ))
-          : [1].map((chat, index) => (
-              <div key={`index${index.toString()}`}>
+            <div key={`${chatId}${index.toString()}`}>
+              <ChatItem content={chat.question} />
+              {chat?.answer && (
                 <ChatItem
-                  skeleton
-                  content={<Skeleton active title paragraph={false} />}
+                  content={chat.answer}
+                  bot
+                  typing={shouldShowTyping(index)}
+                  scrollToBottom={scrollToBottom}
+                  setLoading={setLoading}
                 />
-                <ChatItem skeleton content={<Skeleton active />} bot />
-              </div>
-            ))}
+              )}
+              {scrollToBottom()}
+            </div>
+          ))
+          : [1].map((chat, index) => (
+            <div key={`index${index.toString()}`}>
+              <ChatItem
+                skeleton
+                content={<Skeleton active title paragraph={false} />}
+              />
+              <ChatItem skeleton content={<Skeleton active />} bot />
+            </div>
+          ))}
       </div>
       <div className="input-section-wrapper">
         {/* {isNew && firstRender && (
@@ -299,14 +302,15 @@ const Chat = ({
         </div>
       </div>
       <Modal
-        title="Basic Modal"
+        title="Upload PDF"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        confirmLoading={loading}
       >
         <Form role="form" form={uploadForm}>
           <Form.Item
-            label="Upload pdf"
+            // label="Upload pdf"
             valuePropName="fileList"
             name="upload"
             getValueFromEvent={uploadedFiles =>
@@ -317,6 +321,7 @@ const Chat = ({
               beforeUpload={() => false}
               listType="picture-card"
               data-testid="upload"
+              maxCount={1}
             >
               <div>
                 <PlusOutlined />

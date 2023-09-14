@@ -21,11 +21,11 @@ export const StyledChatItem = styled.div`
     gap: 1.5rem;
     margin: 10px;
     padding: 16px 20px;
-    color: black;
+    color: white;
     font-size: 16px;
     border-radius: 30px;
     text-align: justify;
-    background: linear-gradient(to right, lightblue, cyan);
+    background: #494949;
     @media only screen and (max-width: 1000px) {
       max-width: 90%;
       width: 90%;
@@ -34,7 +34,7 @@ export const StyledChatItem = styled.div`
 
   .chat-wrapper.not-bot {
     flex-direction: row-reverse;
-    background: #494949;
+    background: rgb(1, 85, 85);
     color: white;
   }
 
