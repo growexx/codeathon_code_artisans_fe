@@ -72,16 +72,10 @@ const Chat = ({
       }
       addChatQue(chatId, message.trim());
       setSearchValue('');
-      // const response = await request(API_ENDPOINTS.CHAT, {
-      //   method: 'POST',
-      //   body: { key: chatId, question: message.trim() },
-      // });
-      const response = {
-        status: 1,
-        data: {
-          answer: tempAns,
-        },
-      };
+      const response = await request(API_ENDPOINTS.TEXT, {
+        method: 'POST',
+        body: { text: message.trim() },
+      });
       if (response.status === 1) {
         const answer = response.data.answer;
         addChatAns(chatId, answer, []);
@@ -353,7 +347,7 @@ const mapStateToProps = createStructuredSelector({
   chatHistory: selectChatHistory(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps (dispatch) {
   return {
     addChatQue: (chatId, question) =>
       dispatch(addChatQuestion(chatId, question)),

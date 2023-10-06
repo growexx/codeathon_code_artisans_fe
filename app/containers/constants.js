@@ -37,6 +37,7 @@ export const AUTH = 'auth';
 export const API_ENDPOINTS = {
   LOGIN: `${API_URL}/${AUTH}/signin`,
   CHAT: `${API_URL}/chat`,
+  TEXT: `${API_URL}/user/text`,
   CHAT_INFO: `${API_URL}/chat-info`,
   DELETE_CHAT: `${API_URL}/chat/delete`,
 };
