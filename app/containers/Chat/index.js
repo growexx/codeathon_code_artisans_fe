@@ -24,9 +24,11 @@ import { addChatAnswer, addChatQuestion, setChatHistory } from './actions';
 import { addSidebarItem } from '../../components/SideBar/actions';
 import { suggesstions } from './constants';
 import { API_ENDPOINTS, ROUTES } from '../constants';
+import docLoading from '../../images/docLoading.gif';
 
 const key = 'chat';
-const tempAns = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quod dolore, accusantium harum eaque natus veniam facilis. Odio ipsam accusamus fugiat natus omnis illum unde quae corrupti amet est. Iusto!";
+const tempAns =
+  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quod dolore, accusantium harum eaque natus veniam facilis. Odio ipsam accusamus fugiat natus omnis illum unde quae corrupti amet est. Iusto!';
 
 const Chat = ({
   isNew,
@@ -200,29 +202,29 @@ const Chat = ({
       <div className="chat-section-wrapper" id="chat" ref={chatSectionRef}>
         {chatHistory[chatId] !== undefined || pathname === 'new-chat'
           ? chatHistory[chatId]?.map((chat, index) => (
-            <div key={`${chatId}${index.toString()}`}>
-              <ChatItem content={chat.question} />
-              {chat?.answer && (
-                <ChatItem
-                  content={chat.answer}
-                  bot
-                  typing={shouldShowTyping(index)}
-                  scrollToBottom={scrollToBottom}
-                  setLoading={setLoading}
-                />
-              )}
-              {scrollToBottom()}
-            </div>
-          ))
+              <div key={`${chatId}${index.toString()}`}>
+                <ChatItem content={chat.question} />
+                {chat?.answer && (
+                  <ChatItem
+                    content={chat.answer}
+                    bot
+                    typing={shouldShowTyping(index)}
+                    scrollToBottom={scrollToBottom}
+                    setLoading={setLoading}
+                  />
+                )}
+                {scrollToBottom()}
+              </div>
+            ))
           : [1].map((chat, index) => (
-            <div key={`index${index.toString()}`}>
-              <ChatItem
-                skeleton
-                content={<Skeleton active title paragraph={false} />}
-              />
-              <ChatItem skeleton content={<Skeleton active />} bot />
-            </div>
-          ))}
+              <div key={`index${index.toString()}`}>
+                <ChatItem
+                  skeleton
+                  content={<Skeleton active title paragraph={false} />}
+                />
+                <ChatItem skeleton content={<Skeleton active />} bot />
+              </div>
+            ))}
       </div>
       <div className="input-section-wrapper">
         {/* {isNew && firstRender && (
@@ -331,6 +333,16 @@ const Chat = ({
             </Upload>
           </Form.Item>
         </Form>
+        {loading ? (
+          <>
+            <img
+              src={docLoading}
+              style={{
+                margin: '0 auto',
+              }}
+            />
+          </>
+        ) : null}
       </Modal>
     </StyledChat>
   );
