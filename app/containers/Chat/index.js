@@ -12,6 +12,7 @@ import {
   Modal,
   Upload,
   Form,
+  Radio,
 } from 'antd';
 import { SendOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -22,7 +23,6 @@ import reducer from './reducer';
 import { selectChatHistory } from './selectors';
 import { addChatAnswer, addChatQuestion, setChatHistory } from './actions';
 import { addSidebarItem } from '../../components/SideBar/actions';
-import { suggesstions } from './constants';
 import { API_ENDPOINTS, ROUTES } from '../constants';
 import docLoading from '../../images/docLoading.gif';
 
@@ -52,6 +52,7 @@ const Chat = ({
   const pathname = location.pathname.split('/')[1];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [uploadForm] = Form.useForm();
+  const file = Form.useWatch('upload', uploadForm);
 
   const handleSubmit = e => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -154,26 +155,37 @@ const Chat = ({
   };
 
   const handleOk = async () => {
-    setLoading(true);
-    const data = new FormData();
-    const uploadValue = uploadForm.getFieldValue('upload');
-    uploadValue.forEach(x => {
-      if (x.originFileObj !== undefined) {
-        addChatQue(chatId, x.name);
-        data.append('pdf', x.originFileObj);
-      }
-    });
-    const response = await fetch('http://localhost:3002/user/pdf', {
-      method: 'POST',
-      body: data,
-    });
-    const json = await response.json();
-    if (json.status === 1) {
-      const answer = json.data.answer;
-      addChatAns(chatId, answer, []);
+    try {
+      const data = new FormData();
+      uploadForm.validateFields().then(async () => {
+        const uploadValue = uploadForm.getFieldValue('upload');
+        uploadValue.forEach(x => {
+          if (x.originFileObj !== undefined) {
+            addChatQue(chatId, x.name);
+            data.append('pdf', x.originFileObj);
+          }
+        });
+        data.append('type', uploadForm.getFieldValue('type'));
+        setLoading(true);
+        const response = await fetch('http://localhost:3002/user/pdf', {
+          method: 'POST',
+          body: data,
+        });
+        const json = await response.json();
+        if (json.status === 1) {
+          const answer = json.data.answer;
+          addChatAns(chatId, answer, []);
+          uploadForm.resetFields();
+        } else {
+          notification.error(json.message);
+        }
+        setLoading(false);
+        setIsModalOpen(false);
+      });
+    } catch (error) {
+      console.log(error);
+      notification.error(error);
     }
-    setLoading(false);
-    setIsModalOpen(false);
   };
   const handleCancel = () => {
     uploadForm.resetFields();
@@ -227,52 +239,6 @@ const Chat = ({
             ))}
       </div>
       <div className="input-section-wrapper">
-        {/* {isNew && firstRender && (
-          <div className="default-option-container">
-            <div className="default-options options-1">
-              {suggesstions.map((suggestion, index) => {
-                if (index < 2) {
-                  return (
-                    <Button
-                      key={`option-btn-${index.toString()}`}
-                      data-testid="SUGG_BTN"
-                      className="option-card"
-                      onClick={() => {
-                        handleChatMessage(suggestion.title);
-                      }}
-                    >
-                      <div>{suggestion.titlePart1}</div>
-                      <div className="card-content">
-                        {suggestion.titlePart2}
-                      </div>
-                    </Button>
-                  );
-                }
-              })}
-            </div>
-            <div className="default-options">
-              {suggesstions.map((suggestion, index) => {
-                if (index > 1) {
-                  return (
-                    <Button
-                      key={`option-btn-${index.toString()}`}
-                      data-testid="SUGG_BTN"
-                      className="option-card"
-                      onClick={() => {
-                        handleChatMessage(suggestion.title);
-                      }}
-                    >
-                      <div>{suggestion.titlePart1}</div>
-                      <div className="card-content">
-                        {suggestion.titlePart2}
-                      </div>
-                    </Button>
-                  );
-                }
-              })}
-            </div>
-          </div>
-        )} */}
         <div className="input-wrapper">
           <Button className="upload-btn" onClick={() => handleUploadModal()}>
             <UploadOutlined />
@@ -304,7 +270,7 @@ const Chat = ({
         onCancel={handleCancel}
         confirmLoading={loading}
       >
-        <Form role="form" form={uploadForm}>
+        <Form role="form" form={uploadForm} initialValues={{ options: 1 }}>
           <Form.Item
             // label="Upload pdf"
             valuePropName="fileList"
@@ -312,6 +278,12 @@ const Chat = ({
             getValueFromEvent={uploadedFiles =>
               uploadedFiles && uploadedFiles.fileList
             }
+            rules={[
+              {
+                required: true,
+                message: 'Please upload a pdf file to process.',
+              },
+            ]}
           >
             <Upload
               beforeUpload={() => false}
@@ -332,6 +304,15 @@ const Chat = ({
               </div>
             </Upload>
           </Form.Item>
+          {file !== undefined && file !== null && (
+            <Form.Item name="type">
+              <Radio.Group name="prompt-type" className="radioBtn">
+                <Radio value={1}>Database Schema</Radio>
+                <Radio value={2}>Unit Test Cases</Radio>
+                <Radio value={3}>Controller Code</Radio>
+              </Radio.Group>
+            </Form.Item>
+          )}
         </Form>
         {loading ? (
           <>
@@ -359,7 +340,7 @@ const mapStateToProps = createStructuredSelector({
   chatHistory: selectChatHistory(),
 });
 
-export function mapDispatchToProps (dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     addChatQue: (chatId, question) =>
       dispatch(addChatQuestion(chatId, question)),

@@ -114,6 +114,10 @@ export const StyledChat = styled.div`
     font-size: 1rem;
   }
 
+  .modalStyles .radioBtn > span {
+    color: #ffffff !important;
+  }
+
   @media only screen and (max-width: 576px) {
     .default-options {
       flex-direction: column;
