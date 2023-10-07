@@ -2,7 +2,7 @@
 /* eslint-disable react/no-children-prop */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import Typist from 'react-typist';
 import Markdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -34,7 +34,8 @@ function ChatItem({
     scrollToBottom();
   }, [render]);
 
-  const renderMarkdown = () => {
+  const renderMarkdown = newContent => {
+    console.log(newContent);
     return (
       <Markdown
         components={{
@@ -58,7 +59,7 @@ function ChatItem({
           },
         }}
       >
-        {content}
+        {newContent}
       </Markdown>
     );
   };
@@ -96,13 +97,13 @@ function ChatItem({
                     ) : (
                       <>{content}</>
                     )} */}
-                  {renderMarkdown()}
+                  {renderMarkdown(content)}
                 </div>
               </Typist>
             ) : (
               <div className="content-wrapper">
-                {/* {renderMarkdown()} */}
-                {!skeleton ? (
+                {renderMarkdown(content)}
+                {/* {!skeleton ? (
                   content
                     ?.toString()
                     .split('\n')
@@ -114,7 +115,20 @@ function ChatItem({
                     {content}
                     {() => setRender(!render)}
                   </>
-                )}
+                )} */}
+              </div>
+            )}
+            {bot && (
+              <div className="source-wrapper">
+                <Button
+                  className="source-btn"
+                  onClick={() => {
+                    navigator.clipboard.writeText(content);
+                    message.info('Answer copied!');
+                  }}
+                >
+                  Copy
+                </Button>
               </div>
             )}
           </div>

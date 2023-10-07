@@ -230,11 +230,11 @@ const Chat = ({
             ))
           : [1].map((chat, index) => (
               <div key={`index${index.toString()}`}>
-                <ChatItem
+                {/* <ChatItem
                   skeleton
                   content={<Skeleton active title paragraph={false} />}
                 />
-                <ChatItem skeleton content={<Skeleton active />} bot />
+                <ChatItem skeleton content={<Skeleton active />} bot /> */}
               </div>
             ))}
       </div>
@@ -246,7 +246,7 @@ const Chat = ({
           <Input.TextArea
             onPressEnter={handleSubmit}
             autoSize={{ minRows: 1, maxRows: 8 }}
-            placeholder="Send a message"
+            placeholder="Generate a database schema for ..."
             className="chat-input"
             value={searchValue}
             disabled={loading}

@@ -1,4 +1,6 @@
 import React from 'react';
+import { OrbitControls } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Form, Input, Button, notification } from 'antd';
@@ -20,6 +22,7 @@ import messages from './messages';
 import { StyledLogin } from './StyledLogin';
 import { changeEmail, changePassword, fireLogin } from './actions';
 import reducer from './reducer';
+import NeuralNetwork from './NeuralNetwork';
 import saga from './saga';
 import { StyledAuthContainer } from '../StyledAuthContainer';
 import GrowexxLogo from '../../../images/Growexx-Triangle.svg';
@@ -43,77 +46,85 @@ export function Login({
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
   return (
-    <Form onFinish={onSignIn}>
-      <StyledAuthContainer>
-        <Helmet>
-          <title>Login</title>
-          <meta name="description" content="Description of Login" />
-        </Helmet>
-        <StyledLogin>
-          <div className="LoginSubContainer">
-            <div className="logo">
-              <img src={GrowexxLogo} alt="logo" />
-            </div>
-            <p className="createAccount">
-              <FormattedMessage {...messages.accountDetails} />
-            </p>
-            <p className="emailLogin">
-              <FormattedMessage {...messages.emailLogin} />
-            </p>
-            <div className="accountData">
-              <Form.Item
-                name="email"
-                rules={[
-                  {
-                    type: 'email',
-                    message: <FormattedMessage {...messages.validEmail} />,
-                  },
-                  {
-                    required: true,
-                    message: (
-                      <FormattedMessage {...messages.emailRequiredMessage} />
-                    ),
-                  },
-                ]}
-              >
-                <Input
-                  prefix={<MailOutlined className="site-form-item-icon" />}
-                  placeholder="Email"
-                  onChange={onChangeEmail}
-                  type="email"
-                  value={email}
-                />
+    <>
+      <Canvas camera={{ position: [0, 0, 17.5] }} style={{ position: 'fixed' }}>
+        <NeuralNetwork />
+        <OrbitControls />
+      </Canvas>
+      <Form onFinish={onSignIn}>
+        <StyledAuthContainer>
+          <Helmet>
+            <title>Login</title>
+            <meta name="description" content="Description of Login" />
+          </Helmet>
+          <StyledLogin>
+            <div className="LoginSubContainer">
+              <div className="logo">
+                <img src={GrowexxLogo} alt="logo" />
+              </div>
+              <p className="createAccount">
+                <FormattedMessage {...messages.accountDetails} />
+              </p>
+              <p className="emailLogin">
+                <FormattedMessage {...messages.emailLogin} />
+              </p>
+              <div className="accountData">
+                <Form.Item
+                  name="email"
+                  rules={[
+                    {
+                      type: 'email',
+                      message: <FormattedMessage {...messages.validEmail} />,
+                    },
+                    {
+                      required: true,
+                      message: (
+                        <FormattedMessage {...messages.emailRequiredMessage} />
+                      ),
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<MailOutlined className="site-form-item-icon" />}
+                    placeholder="Email"
+                    onChange={onChangeEmail}
+                    type="email"
+                    value={email}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: (
+                        <FormattedMessage
+                          {...messages.passwordRequiredMessage}
+                        />
+                      ),
+                    },
+                  ]}
+                >
+                  <Input.Password
+                    prefix={<LockOutlined className="site-form-item-icon" />}
+                    value={password}
+                    placeholder="Password"
+                    onChange={onChangePassword}
+                    type="password"
+                  />
+                </Form.Item>
+              </div>
+              <Form.Item>
+                <Button loading={loading} htmlType="submit">
+                  <FormattedMessage {...messages.signIn} />
+                </Button>
               </Form.Item>
-              <Form.Item
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: (
-                      <FormattedMessage {...messages.passwordRequiredMessage} />
-                    ),
-                  },
-                ]}
-              >
-                <Input.Password
-                  prefix={<LockOutlined className="site-form-item-icon" />}
-                  value={password}
-                  placeholder="Password"
-                  onChange={onChangePassword}
-                  type="password"
-                />
-              </Form.Item>
             </div>
-            <Form.Item>
-              <Button loading={loading} htmlType="submit">
-                <FormattedMessage {...messages.signIn} />
-              </Button>
-            </Form.Item>
-          </div>
-        </StyledLogin>
-        {error === true && showNotification()}
-      </StyledAuthContainer>
-    </Form>
+          </StyledLogin>
+          {error === true && showNotification()}
+        </StyledAuthContainer>
+      </Form>
+    </>
   );
 }
 

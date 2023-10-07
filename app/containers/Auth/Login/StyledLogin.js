@@ -8,10 +8,10 @@ export const StyledLogin = styled.div`
   align-items: center;
   flex-direction: column;
   height: 100vh;
-  background: linear-gradient(to bottom, #cc7dff, lightgreen, #aecce4);
+  background: black;
   .emailLogin {
     margin-bottom: 40px;
-    color: #091b29;
+    color: @white;
     font-weight: @font-weight-regular;
     font-size: @font-size-base;
   }
@@ -36,7 +36,7 @@ export const StyledLogin = styled.div`
     margin: 0;
     font-weight: @font-weight-bold;
     font-size: @font-size-lg+26;
-    color: #091b29;
+    color: @white;
   }
   .socialIcons > span {
     border: 1px solid @border-color-base;
@@ -72,7 +72,7 @@ export const StyledLogin = styled.div`
       height: 40px;
     }
     input[value] {
-      color: @text-color-secondary;
+      color: @black;
       font-size: @font-size-base+1px;
     }
     input:-webkit-autofill {

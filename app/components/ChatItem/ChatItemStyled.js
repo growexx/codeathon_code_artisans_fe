@@ -46,7 +46,7 @@ export const StyledChatItem = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    width: 100%;
+    width: 90%;
   }
 
   .chat-content-wrapper.not-bot {
@@ -62,7 +62,7 @@ export const StyledChatItem = styled.div`
 
   .source-btn {
     width: fit-content;
-    background-color: #ff6b6b;
+    background-color: @primary-color;
     color: white;
   }
 
@@ -72,6 +72,6 @@ export const StyledChatItem = styled.div`
   }
 
   .chat-Md-container {
-    width: 100%;
+    width: 90%;
   }
 `;
