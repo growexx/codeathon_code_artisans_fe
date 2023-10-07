@@ -1,7 +1,12 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-children-prop */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import Typist from 'react-typist';
+import Markdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import GrowExxLogo from '../../images/Growexx-Triangle.svg';
 import ProfileLogo from '../../images/Profile.svg';
 import { StyledChatItem } from './ChatItemStyled';
@@ -11,8 +16,8 @@ function ChatItem({
   typing,
   skeleton = false,
   sources = [],
-  scrollToBottom = () => { },
-  setLoading = () => { },
+  scrollToBottom = () => {},
+  setLoading = () => {},
 }) {
   const [showButton, setShowButton] = useState(!typing);
   const [showPdfs, setShowPdfs] = useState(false);
@@ -29,6 +34,34 @@ function ChatItem({
     scrollToBottom();
   }, [render]);
 
+  const renderMarkdown = () => {
+    return (
+      <Markdown
+        components={{
+          code(props) {
+            const { children, className, node, ...rest } = props;
+            const match = /language-(\w+)/.exec(className || '');
+            return match ? (
+              <SyntaxHighlighter
+                {...rest}
+                style={atomDark}
+                language={match[1]}
+                PreTag="div"
+              >
+                {String(children).replace(/\n$/, '')}
+              </SyntaxHighlighter>
+            ) : (
+              <code {...rest} className={className}>
+                {children}
+              </code>
+            );
+          },
+        }}
+      >
+        {content}
+      </Markdown>
+    );
+  };
   return (
     <StyledChatItem>
       <div className={`chat-history-wrapper ${bot && 'bot'}`}>
@@ -53,20 +86,22 @@ function ChatItem({
                   setLoading(false);
                 }}
               >
-                <div>
-                  {!skeleton ? (
-                    content
-                      .split('\n')
-                      .map((line, index) => (
-                        <p key={`${line[0]}${index.toString()}`}>{line}</p>
-                      ))
-                  ) : (
-                    <>{content}</>
-                  )}
+                <div className="chat-Md-container">
+                  {/* {!skeleton ? (
+                      content
+                        .split('\n')
+                        .map((line, index) => (
+                          <p key={`${line[0]}${index.toString()}`}>{line}</p>
+                        ))
+                    ) : (
+                      <>{content}</>
+                    )} */}
+                  {renderMarkdown()}
                 </div>
               </Typist>
             ) : (
               <div className="content-wrapper">
+                {/* {renderMarkdown()} */}
                 {!skeleton ? (
                   content
                     ?.toString()
@@ -82,22 +117,6 @@ function ChatItem({
                 )}
               </div>
             )}
-            {/* {showButton && bot && !skeleton && (
-              <div className="source-wrapper">
-                <Button
-                  className="source-btn"
-                  onClick={() => setShowPdfs(!showPdfs)}
-                >
-                  Sources
-                </Button>
-                {showPdfs &&
-                  sources.map(source => (
-                    <a href={`${pdfsPath}${source}`} key={source} download>
-                      {source}
-                    </a>
-                  ))}
-              </div>
-            )} */}
           </div>
         </div>
       </div>

@@ -70,4 +70,8 @@ export const StyledChatItem = styled.div`
     color: white;
     text-decoration: underline;
   }
+
+  .chat-Md-container {
+    width: 100%;
+  }
 `;
